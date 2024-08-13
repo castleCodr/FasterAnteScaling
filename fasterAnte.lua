@@ -58,15 +58,14 @@ function get_blind_amount(ante)
         arrowAmt = arrowAmt+extraAntes
     end
     if(arrowAmt > 2) then
+        if(arrowAmt>20) then
+            arrowAmt = arrowAmt-20
+            arrowAmt = arrowAmt*(arrowAmt+1)/2
+            arrowAmt = arrowAmt+20
+        end
         return orig_amt:arrow(arrowAmt,2)
     end
-    return orig_amt:arrow(arrowAmt,ante%8+4)
+    return orig_amt:arrow(arrowAmt,math.max(extraAntes,2))
 end
 local err=end_round
-function end_round() 
-    for i=16,100 do
-        print(i)
-        print(get_blind_amount(i):toString())
-    end
-    err()
-end
+
